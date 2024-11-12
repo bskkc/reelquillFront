@@ -4,6 +4,9 @@ import { LoginRequest } from '../models/loginRequest';
 import { LoginResponse } from '../models/loginResponse';
 import { toast } from 'react-toastify';
 import uiConstantsTR from '../constants/uiConstantsTR';
+import userActions from '../actions/userActions';
+import { User } from '../models/user';
+import { UpdateProfileRequest } from '../models/updateProfileRequest';
 
 export class UserController {
 
@@ -11,26 +14,28 @@ export class UserController {
         return new Promise((resolve, reject) => {
             UserService.createUser(user, (response) => {
                 if (response) {
-                    toast.success(uiConstantsTR.USER_MESSAGES.REGISTER_SUCCESSFUL_MESSAGE); 
+                    toast.success(uiConstantsTR.USER_MESSAGES.REGISTER_SUCCESSFUL_MESSAGE);
                     resolve(response);
                 } else {
-                    toast.error(uiConstantsTR.USER_MESSAGES.REGISTER_ERROR_MESSAGE); 
+                    toast.error(uiConstantsTR.USER_MESSAGES.REGISTER_ERROR_MESSAGE);
                     reject('Failed to create user');
                 }
             });
         });
     }
 
-    static login(loginRequest: LoginRequest): Promise<LoginResponse> {
+    static login(loginRequest: LoginRequest, dispatch: React.Dispatch<any>): Promise<LoginResponse> {
         return new Promise((resolve, reject) => {
             UserService.login(loginRequest, (response) => {
                 if (response) {
-                    toast.success(uiConstantsTR.USER_MESSAGES.LOGIN_SUCCESSFUL_MESSAGE); 
-                    const { token } = response;
+                    toast.success(uiConstantsTR.USER_MESSAGES.LOGIN_SUCCESSFUL_MESSAGE);
+                    const { token, user } = response;
                     localStorage.setItem('token', token);
+                    dispatch(userActions.userInfoChanged(user));
+                    dispatch(userActions.isAuthenticated(true));
                     resolve(response);
                 } else {
-                    toast.error(uiConstantsTR.USER_MESSAGES.LOGIN_ERROR_MESSAGE); 
+                    toast.error(uiConstantsTR.USER_MESSAGES.LOGIN_ERROR_MESSAGE);
                     reject('Login failed');
                 }
             });
@@ -51,17 +56,13 @@ export class UserController {
         });
     }
 
-    static fetchUserById(id: number): Promise<any> {
-        return new Promise((resolve, reject) => {
-            UserService.getUserById(id, (user) => {
-                if (user) {
-                    console.log('Fetched user:', user);
-                    resolve(user);
-                } else {
-                    console.error('Failed to fetch user.');
-                    reject('Failed to fetch user');
-                }
-            });
+    static getUserById(userId: number, callback: (response: User | null) => void) {
+        UserService.getUserById(userId, (response) => {
+            if (response) {
+                callback(response);
+            } else {
+                callback(null);
+            }
         });
     }
 
@@ -71,6 +72,21 @@ export class UserController {
                 if (success) {
                     console.log('User deleted successfully!');
                     resolve('User deleted successfully');
+                } else {
+                    console.error('Failed to delete user.');
+                    reject('Failed to delete user');
+                }
+            });
+        });
+    }
+
+    static updateUser(updateRequest: UpdateProfileRequest, dispatch: React.Dispatch<any>): Promise<any> {
+        return new Promise((resolve, reject) => {
+            UserService.updateUser(updateRequest, (response) => {
+                if (response) {
+                    toast.success(uiConstantsTR.USER_MESSAGES.UPDATE_SUCCESSFUL_MESSAGE);
+                    dispatch(userActions.userInfoChanged(response));
+                    resolve(response);
                 } else {
                     console.error('Failed to delete user.');
                     reject('Failed to delete user');

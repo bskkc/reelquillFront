@@ -1,25 +1,22 @@
 $background-color-white: #FFFFFF;
 $background-color-dark-blue: #041643;
 $clickable-text-color: #294ead;
+$text-color: #041643;
+
+.list {
+    width: 100%;
+    max-width: 100%;
+    // background-color: $background-color-white;
+    border-radius: 10px;
+}
 
 .list-item {
     align-items: flex-start;
 }
 
-.login-form {
-    padding: 24px;
-    border-radius: 8px;
-    background-color: $background-color-white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.list-item-text {
+    // color: $text-color;
+    display: inline;
+    justify-content: end;
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 80px;
-}
-
-.register-text {
-    cursor: pointer;
-    justify-content: center;
-    display: flex;
-    color: $clickable-text-color;
 }

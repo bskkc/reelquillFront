@@ -2,10 +2,20 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import '../styles/MainContainer.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import HeaderView from './common/HeaderView';
+import { useSelector } from 'react-redux';
+import Loading from './Loading';
 
 const MainContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const isAuthenticated = useSelector((state: any) => state.userInfo.isAuthenticated);
+    const isMainContentInProgress = useSelector((state: any) => state.ui.isMainContentInProgress);
+
     return (
         <div className="container">
+            {isMainContentInProgress && <Loading />}
+            {isAuthenticated ?
+                <HeaderView />
+                : ""}
             {children}
             <ToastContainer
                 position="bottom-right"

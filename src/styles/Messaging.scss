@@ -1,0 +1,134 @@
+$color-white: #ffffff;
+$soft-white: #f1f1f1;
+$message-bubble-blue: #007bff;
+$button-hover-blue: #0056b3;
+
+.message-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    max-height: calc(100vh - 160px);
+}
+
+.message-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-list li {
+    margin: 10px;
+    display: flex;
+}
+
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 15px;
+    width: 70%;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.sent {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sent .message-bubble {
+    background-color: $message-bubble-blue;
+    color: $color-white;
+    border-radius: 15px 15px 0 15px;
+}
+
+.received .message-bubble {
+    background-color: $soft-white;
+    color: black;
+    border-radius: 15px 15px 15px 0;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.message-time {
+    font-size: 12px;
+    color: $soft-white;
+}
+
+.message-content {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+}
+
+.message-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.message-input:focus {
+    border-color: $message-bubble-blue;
+}
+
+.send-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 25px;
+    // background-color: $message-bubble-blue;
+    color: $color-white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+    background-color: $button-hover-blue;
+}
+
+.send-button:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+.inbox-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.inbox-receiver-username {
+    color: $button-hover-blue; 
+    font-size: 14px;
+}
+
+.inbox-timestamp {
+    font-size: 12px;
+    color: #888;
+}
+
+.inbox-message-content {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.4;
+}

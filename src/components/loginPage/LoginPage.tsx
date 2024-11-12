@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Paper } from '@mui/material';
 import '../../styles/LoginPage.scss';
@@ -8,6 +8,7 @@ import ButtonView from '../common/ButtonView';
 import { UserController } from '../../controllers/UserController';
 import { LoginRequest } from '../../models/loginRequest';
 import { useDispatch } from 'react-redux';
+import userActions from '../../actions/userActions';
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
@@ -17,14 +18,22 @@ const LoginPage: React.FC = () => {
         password: '',
     });
 
+    useEffect(() => {
+        setUserInfo({
+            email: '',
+            password: '',
+        });
+        dispatch(userActions.isAuthenticated(false));
+    }, []);
+
     const onClickLogin = () => {
-        UserController.login(userInfo)
+        UserController.login(userInfo, dispatch)
             .then((response) => {
                 navigate('/home');
             })
             .catch((error) => {
-                console.error(error); 
-                alert('Giriş başarısız!'); 
+                console.error(error);
+                alert('Giriş başarısız!');
             });
     };
 

@@ -7,11 +7,13 @@ interface ButtonViewProps {
     variant?: 'contained';
     fullWidth?: boolean;
     onClickCallback?: () => void;
+    className?: string;
 }
 
-const ButtonView: React.FC<ButtonViewProps> = ({ label, color, variant = 'contained', fullWidth, onClickCallback }) => {
+const ButtonView: React.FC<ButtonViewProps> = ({ label, color, variant = 'contained', fullWidth, onClickCallback, className = "" }) => {
     return (
         <Button
+            className={className}
             fullWidth={fullWidth}
             color={color}
             variant={variant}

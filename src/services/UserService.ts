@@ -2,6 +2,8 @@ import axios from 'axios';
 import { RegisterRequest } from '../models/registerRequest';
 import { LoginRequest } from '../models/loginRequest';
 import { LoginResponse } from '../models/loginResponse';
+import { UpdateProfileRequest } from '../models/updateProfileRequest';
+import { User } from '../models/user';
 
 const API_URL = 'http://localhost:8080/api/users';
 
@@ -28,8 +30,8 @@ export class UserService {
             });
     }
 
-    static getUserById(id: number, callback: (user: RegisterRequest | null) => void): void {
-        axios.get<RegisterRequest>(`${API_URL}/${id}`)
+    static getUserById(id: number, callback: (user: User | null) => void): void {
+        axios.get<User>(`${API_URL}/${id}`)
             .then(response => {
                 callback(response.data);
             })
@@ -54,11 +56,23 @@ export class UserService {
         axios.post<LoginResponse>(`${API_URL}/login`, loginRequest)
             .then(response => {
                 const loginResponse = response.data;
-                callback(loginResponse); // Artık LoginResponse nesnesi döndürülüyor
+                callback(loginResponse);
             })
             .catch(error => {
                 console.error('Error logging in user:', error);
                 callback(null);
             });
     }
+
+    static updateUser(updateRequest: UpdateProfileRequest, callback: (response: User | null) => void) {
+        axios.post<User>(`${API_URL}/update`, updateRequest)
+            .then(response => {
+                const updateResponse = response.data;
+                callback(updateResponse);
+            })
+            .catch(error => {
+                console.error('Error updating user profile:', error);
+                callback(null);
+            });
+    }    
 }
