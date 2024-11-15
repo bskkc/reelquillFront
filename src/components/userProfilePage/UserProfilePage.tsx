@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { UserController } from '../../controllers/UserController';
 import { User } from '../../models/user';
@@ -12,7 +11,6 @@ import ListItemView from '../common/ListItemView';
 
 
 const UserProfilePage: React.FC = () => {
-    const dispatch = useDispatch();
     const location = useLocation();
     const [userDetail, setUserDetail] = useState<User>({
         id: 0,
@@ -43,7 +41,7 @@ const UserProfilePage: React.FC = () => {
     }, [selectedUserId]);
 
     return (
-        <div className='home-page'>
+        <div>
             {userDetail ? (
                 <>
                     <Box sx={{ p: 2 }}>
@@ -74,7 +72,7 @@ const UserProfilePage: React.FC = () => {
                     </Box>
                 </>
             ) : (
-                <p>Kullanıcı bilgisi bulunamadı.</p>
+                <span>{uiConstantsTR.USER_MESSAGES.NO_USER}</span>
             )}
         </div>
     );

@@ -1,54 +1,74 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
+import Modal from "@mui/material/Modal";
+import ButtonView from './ButtonView';
+import { Box, DialogActions, Typography } from '@mui/material';
 
-const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>,
-) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+interface ModalViewProps {
+    isOpen: boolean;
+    handleClose: () => void;
+    title?: string;
+    contentText?: string;
+    handleApply: () => void;
+    firstBtnText: string;
+    secondBtnText: string;
+    children?: React.ReactNode;
+    width?: string;
+    height?: string;
+}
 
-export default function AlertDialogSlide() {
-    const [open, setOpen] = React.useState(false);
+const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+};
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+const ModalView: React.FC<ModalViewProps> = ({
+    isOpen,
+    handleClose,
+    title,
+    contentText,
+    handleApply,
+    firstBtnText,
+    secondBtnText,
+    children,
+    width = "30%",
+    height = "auto"
+}) => {
 
     return (
-        <React.Fragment>
-            <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
+        <div>
+            <Modal
+                open={isOpen}
                 onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
-                <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleClose}>Agree</Button>
-                </DialogActions>
-            </Dialog>
-        </React.Fragment>
+                <Box sx={{
+                    ...style,
+                    width: width,
+                    height: height
+                }}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {title}
+                    </Typography>
+
+                    {contentText && <p>{contentText}</p>}
+                    {children}
+
+                    <DialogActions className='d-flex dialog-actions'>
+                        <ButtonView label={firstBtnText} onClickCallback={handleClose} />
+                        <ButtonView label={secondBtnText} onClickCallback={handleApply} />
+                    </DialogActions>
+                </Box>
+            </Modal>
+        </div>
+
     );
-}
+};
+
+export default ModalView;

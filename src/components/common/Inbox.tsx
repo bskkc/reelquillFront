@@ -12,17 +12,16 @@ import Divider from '@mui/material/Divider';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import uiActions from '../../actions/uiActions';
-import { useNavigate } from 'react-router-dom';
 import { MessageController } from '../../controllers/MessageController';
 import { MessageResponse } from '../../models/messageResponse';
 import messageActions from '../../actions/messageActions';
 import { formatDateWithText } from '../../helpers/formatter';
 import '../../styles/Messaging.scss';
+import uiConstantsTR from '../../constants/uiConstantsTR';
 
 
 export default function Inbox() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const isMessageDrawerOpen = useSelector((state: any) => state.ui.isMessageDrawerOpen);
     const userInfo = useSelector((state: any) => state.userInfo);
     const messages = useSelector((state: any) => state.message.data);
@@ -43,7 +42,7 @@ export default function Inbox() {
             <Drawer anchor="right" open={isMessageDrawerOpen} onClose={toggleDrawer(false)}>
                 <Box sx={{ width: 500, p: 2 }}>
                     <Typography variant="h5" gutterBottom>
-                        Mesajlar
+                        {uiConstantsTR.MESSAGE_DRAWER.INBOX_TITLE}
                     </Typography>
                     <Divider />
 
@@ -52,7 +51,7 @@ export default function Inbox() {
                             <React.Fragment key={index}>
                                 {message.id === 1 && (
                                     <ListSubheader sx={{ bgcolor: 'background.paper' }}>
-                                        Today
+                                        {uiConstantsTR.MESSAGE_DRAWER.TODAY_LABEL}
                                     </ListSubheader>
                                 )}
                                 <ListItemButton onClick={() => {
@@ -76,7 +75,7 @@ export default function Inbox() {
                                     <ListItemText
                                         primary={
                                             <div className="inbox-header">
-                                                <span className="inbox-receiver-username">{message.receiverUsername}</span>
+                                                <span>{message.receiverUsername}</span>
                                                 <span className="inbox-timestamp">{formatDateWithText(message.timestamp)}</span>
                                             </div>
                                         }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Rate } from 'antd';
 
 interface RateViewProps {
@@ -16,9 +16,10 @@ const RateView: React.FC<RateViewProps> = ({
     onChange,
     disabled = false,
 }) => {
+
     return (
         <div>
-            <span>{label}</span>
+            <span className='me-3'>{label}</span>
             <Rate
                 defaultValue={defaultValue}
                 value={value}

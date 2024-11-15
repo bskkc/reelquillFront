@@ -10,8 +10,11 @@ import MovieDetailPage from './components/movieDetailPage/MovieDetailPage';
 import UserProfilePage from './components/userProfilePage/UserProfilePage';
 import { useSelector } from 'react-redux';
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import { lightTheme, darkTheme } from './styles/theme'; 
+import { lightTheme, darkTheme } from './styles/theme';
 import { applicationEnum } from './constants/applicationEnum';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Weather from './components/homePage/cards/WeatherCard';
+
 
 function App() {
   const currentTheme = useSelector((state: any) => state.ui.theme);

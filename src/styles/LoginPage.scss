@@ -13,12 +13,10 @@ $clickable-text-color: #294ead;
 .login-form {
     padding: 24px;
     border-radius: 8px;
-    // background-color: $background-color-white;
-    // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 80px;
+    padding: 10% !important;
 }
 
 .register-text {

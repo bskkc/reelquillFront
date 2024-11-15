@@ -48,10 +48,10 @@ export default function TabView({ tabs, onClickAddQuill }: TabViewProps) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box sx={{ padding: '1%', borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{ flexGrow: 1, marginLeft: "1rem" }}>
           {tabs.map((tab, index) => (
-            <Tab sx={{ color: '#fff' }} label={tab.label} {...a11yProps(index)} key={index} />
+            <Tab label={tab.label} {...a11yProps(index)} key={index} />
           ))}
         </Tabs>
         <div className='add-quill-btn justify-content-end'>

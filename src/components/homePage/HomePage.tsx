@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import TabView from '../common/TabView'; // TabView bileşeninizi import edin
+import TabView from '../common/TabView';
 import AllQuillsTab from './tabs/AllQuillsTab';
 import FriendsQuillsTab from './tabs/FriendsQuillsTab';
-import ButtonView from '../common/ButtonView';
 import { useDispatch } from 'react-redux';
 import uiActions from '../../actions/uiActions';
 import AddQuillModal from './modals/AddQuillModal';
@@ -12,6 +11,8 @@ import MoviesTab from './tabs/MoviesTab';
 import uiConstantsTR from '../../constants/uiConstantsTR';
 import BooksTab from './tabs/BooksTab';
 import SongsTab from './tabs/SongsTab';
+import WeatherCard from './cards/WeatherCard';
+import CryptoCurrencyCard from './cards/CryptoCurrencyCard';
 
 const HomePage: React.FC = () => {
     const dispatch = useDispatch();
@@ -34,13 +35,22 @@ const HomePage: React.FC = () => {
     }
 
     return (
-        <div className='home-page'>
-            <TabView tabs={tabs} onClickAddQuill={onClickAddQuill} />
+        <div className='d-flex'>
+            <div style={{ width: '80%' }}>
+                <TabView tabs={tabs} onClickAddQuill={onClickAddQuill} />
+            </div>
+
+            <div className='home-page-right-container '>
+                    <WeatherCard />
+                    <CryptoCurrencyCard />
+            </div>
+
             <AddQuillModal />
             <Inbox />
             <Messaging />
         </div>
     );
+
 };
 
 export default HomePage;

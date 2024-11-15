@@ -11,7 +11,7 @@ const MainContainer: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     const isMainContentInProgress = useSelector((state: any) => state.ui.isMainContentInProgress);
 
     return (
-        <div className="container">
+        <div className="container m-0 p-0">
             {isMainContentInProgress && <Loading />}
             {isAuthenticated ?
                 <HeaderView />

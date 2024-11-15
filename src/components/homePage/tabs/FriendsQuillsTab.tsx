@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../../../styles/HomePage.scss';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -12,9 +11,7 @@ import { formatDateWithText } from '../../../helpers/formatter';
 import uiConstantsTR from '../../../constants/uiConstantsTR';
 
 const FriendsQuillsTab: React.FC = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector((state: any) => state.userInfo.isAuthenticated);
     const userInfo = useSelector((state: any) => state.userInfo);
     const quills = useSelector((state: any) => state.quills.friendsQuills) as Quill[];
 
@@ -30,7 +27,7 @@ const FriendsQuillsTab: React.FC = () => {
     return (
         <div className="tab-div">
             {quills.length > 0 ? (
-                <div className="tab-container">
+                <div>
                     <List className='list'>
                         {quills.map((quill: Quill, index: number) => (
                             <React.Fragment key={index}>

@@ -27,7 +27,7 @@ const AllQuillsTab: React.FC = () => {
     return (
         <div className="tab-div">
             {quills.length > 0 ? (
-                <div className="tab-container">
+                <div>
                     <List className='list'>
                         {quills.map((quill: Quill, index: number) => (
                             <React.Fragment key={index}>

@@ -10,17 +10,12 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { Grid } from '@mui/material';
-
-interface Song {
-  id: string;
-  name: string;
-  role: string;
-  image: { url: string }[];
-}
+import { Grid, Paper } from '@mui/material';
+import '../../styles/HomePage.scss';
+import { GetSongResponse } from '../../models/getSongResponse';
 
 interface SongCardViewProps {
-  songs: Song[];
+  songs: GetSongResponse[];
   currentIndex: number;
   onPlay: (id: string) => void;
   onPrevious: () => void;
@@ -41,52 +36,44 @@ const SongCardView: React.FC<SongCardViewProps> = ({
   const theme = useTheme();
 
   return (
-    <Card sx={{ display: 'flex' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Grid container spacing={2}>
-          {songs.map((song, index) => (
-            <Grid item xs={12} sm={6} md={4} key={song.id}>
-              <CardContent sx={{ flex: '1 0 auto' }}>
-                <Typography component="div" variant="h5">
-                  {song.name} 
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  component="div"
-                  sx={{ color: 'text.secondary' }}
-                >
-                  {song.role}
-                </Typography>
-              </CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                <IconButton aria-label="previous" onClick={onPrevious}>
-                  {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-                </IconButton>
-                <IconButton
-                  aria-label="play/pause"
-                  onClick={() => onPlay(song.id)} 
-                >
-                  {isPlaying && currentSongId === song.id ? (
-                    <PauseIcon sx={{ height: 38, width: 38 }} />
-                  ) : (
-                    <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-                  )}
-                </IconButton>
-                <IconButton aria-label="next" onClick={onNext}>
-                  {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-                </IconButton>
-              </Box>
-              <CardMedia
-                component="img"
-                sx={{ width: 151 }}
-                image={song.image && song.image.length > 0 ? song.image[0].url : 'fallback-image-url'}
-                alt={`${song.name} album cover`}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Card>
+    <Box className="d-flex justify-content-center align-items-center">
+      <Grid container spacing={2}>
+        {songs.map((song, index) => (
+          <Grid item xs={12} sm={6} md={4} key={song.id}>
+            <Paper className="song-card">
+              <Card className="song-card-content">
+                <CardContent className="song-card-text">
+                  <Typography component="div" variant="h5" className="song-title">
+                    {song.name}
+                  </Typography>
+                </CardContent>
+                <Box className="song-controls">
+                  <IconButton aria-label="previous" onClick={onPrevious}>
+                    {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+                  </IconButton>
+                  <IconButton aria-label="play/pause" onClick={() => onPlay(song.id)}>
+                    {isPlaying && currentSongId === song.id ? (
+                      <PauseIcon sx={{ height: 38, width: 38 }} />
+                    ) : (
+                      <PlayArrowIcon sx={{ height: 38, width: 38 }} />
+                    )}
+                  </IconButton>
+                  <IconButton aria-label="next" onClick={onNext}>
+                    {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+                  </IconButton>
+                </Box>
+                <CardMedia
+                  component="img"
+                  className="song-image"
+                  image={song.image && song.image.length > 0 ? song.image[0] : 'fallback-image-url'}
+                  alt={`${song.name} album cover`}
+                />
+              </Card>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

@@ -8,25 +8,23 @@ import Typography from '@mui/joy/Typography';
 import CircleIcon from '@mui/icons-material/Circle';
 import AvatarWithStatus from './AvatarWithStatus';
 import { MessageResponse } from '../../models/messageResponse';
-// import { toggleMessagesPane } from '../utils';
 
 type ChatListItemProps = ListItemButtonProps & {
   id: string;
   unread?: boolean;
-  sender: string; // Gönderen kullanıcının adı
-  messages: MessageResponse[]; // Mesajların listesi
-  setSelectedMessage: (message: any) => void; // Mesajı ayarlamak için kullanılan fonksiyon
+  sender: string;
+  messages: MessageResponse[];
+  setSelectedMessage: (message: any) => void;
 };
 
 export default function ChatListItem(props: ChatListItemProps) {
   const { id, sender, messages, setSelectedMessage } = props;
 
   const handleClick = () => {
-    // toggleMessagesPane();
-    setSelectedMessage({ 
-      receiverId: id, 
-      receiverUsername: sender, 
-      groupedMessages: messages 
+    setSelectedMessage({
+      receiverId: id,
+      receiverUsername: sender,
+      groupedMessages: messages
     });
   };
 
@@ -39,7 +37,7 @@ export default function ChatListItem(props: ChatListItemProps) {
           sx={{ flexDirection: 'column', alignItems: 'initial', gap: 1 }}
         >
           <Stack direction="row" spacing={1.5}>
-            <AvatarWithStatus online={true} src="default_avatar.png" /> {/* Örnek avatar */}
+            <AvatarWithStatus online={true} src="default_avatar.png" />
             <Box sx={{ flex: 1 }}>
               <Typography level="title-sm">{sender}</Typography>
               <Typography level="body-sm">{messages[0]?.senderUsername}</Typography>

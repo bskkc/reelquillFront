@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../../../styles/HomePage.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import CardView from '../../common/CardView';
 import PaginationView from '../../common/PaginationView';
 import { BookController } from '../../../controllers/BookController';
 import { GetBookResponse } from '../../../models/getBookResponse';
+import uiConstantsTR from '../../../constants/uiConstantsTR';
 
 const BooksTab: React.FC = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const books = useSelector((state: any) => state.book.data) as GetBookResponse[];
 
@@ -32,9 +31,9 @@ const BooksTab: React.FC = () => {
     };
 
     return (
-        <div className="books-tab">
+        <div className="d-flex align-items-center">
             {books && books.length > 0 ? (
-                <div className="books-tab-container">
+                <div>
                     <CardView cardData={currentItems} isClickable={true} handleSelectItem={onSelectItem} />
                     <PaginationView
                         count={Math.ceil(books.length / itemsPerPage)}
@@ -43,7 +42,7 @@ const BooksTab: React.FC = () => {
                     />
                 </div>
             ) : (
-                <p>No general information available.</p>
+                <span>{uiConstantsTR.USER_MESSAGES.NO_BOOKS}</span>
             )}
         </div>
     );

@@ -1,7 +1,5 @@
-$color-white: #ffffff;
-$soft-white: #f1f1f1;
-$message-bubble-blue: #007bff;
-$button-hover-blue: #0056b3;
+$timestamp-color: #888;
+$message-input-container-border: #ccc;
 
 .message-list-container {
     flex-grow: 1;
@@ -37,14 +35,10 @@ $button-hover-blue: #0056b3;
 }
 
 .sent .message-bubble {
-    background-color: $message-bubble-blue;
-    color: $color-white;
     border-radius: 15px 15px 0 15px;
 }
 
 .received .message-bubble {
-    background-color: $soft-white;
-    color: black;
     border-radius: 15px 15px 15px 0;
 }
 
@@ -53,11 +47,6 @@ $button-hover-blue: #0056b3;
     justify-content: space-between;
     font-size: 12px;
     margin-bottom: 5px;
-}
-
-.message-time {
-    font-size: 12px;
-    color: $soft-white;
 }
 
 .message-content {
@@ -70,8 +59,7 @@ $button-hover-blue: #0056b3;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: #f9f9f9;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid $message-input-container-border;
 }
 
 .message-input {
@@ -85,30 +73,6 @@ $button-hover-blue: #0056b3;
     margin-right: 10px;
 }
 
-.message-input:focus {
-    border-color: $message-bubble-blue;
-}
-
-.send-button {
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: 25px;
-    // background-color: $message-bubble-blue;
-    color: $color-white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.send-button:hover {
-    background-color: $button-hover-blue;
-}
-
-.send-button:disabled {
-    background-color: #d3d3d3;
-    cursor: not-allowed;
-}
-
 .inbox-header {
     display: flex;
     justify-content: space-between;
@@ -117,18 +81,12 @@ $button-hover-blue: #0056b3;
     margin-bottom: 5px;
 }
 
-.inbox-receiver-username {
-    color: $button-hover-blue; 
-    font-size: 14px;
-}
-
 .inbox-timestamp {
     font-size: 12px;
-    color: #888;
+    color: $timestamp-color;
 }
 
 .inbox-message-content {
     font-size: 16px;
-    color: #333;
     line-height: 1.4;
 }

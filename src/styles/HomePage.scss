@@ -3,107 +3,24 @@ $background-color-dark-blue: #041643;
 $clickable-text-color: #294ead;
 $background-color-dark-grey: #4c566e;
 
-.home-page {
-    // background-color: $background-color-dark-grey;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.home-page-container {
+.home-page-right-container {
+    width: 20%;
+    flex-shrink: 0;
+    position: sticky;
+    top: 1rem;
     height: 100vh;
-    width: 100%;
-    padding: 2rem;
 }
 
-.tab-div {
-    height: 100vh;
-    width: 100%;
-    // background-color: $background-color-dark-grey;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.dialog-actions {
+    justify-content: flex-end;
+    gap: 16px;
 
-.tab-container {
-    height: 100vh;
-    width: 100%;
-}
-
-.add-quill-btn>button {
-    margin-right: 1rem;
-}
-
-.add-quill-modal {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 400;
-    // background-color: #FFFFFF;
-    border: 2px solid #000;
-}
-
-.add-quill-buttons {
-    justify-content: end;
-    display: flex;
-}
-
-.add-quill-buttons>button {
-    margin: 1em;
-}
-
-.movies-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    // background-color: #f5f5f5;
-}
-
-.movies-tab-container {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 20px;
-    padding: 15px;
-    // background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.no-info-message {
-    font-size: 1.2rem;
-    color: #666;
-    text-align: center;
-    margin-top: 20px;
-}
-
-@media (max-width: 768px) {
-    .movies-tab-container {
-        padding: 10px;
+    @media (max-width: 600px) {
+        flex-direction: column;
     }
-}
 
-.books-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    // background-color: #f5f5f5;
-}
-
-.books-tab-container {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 20px;
-    padding: 15px;
-    // background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 768px) {
-    .books-tab-container {
-        padding: 10px;
+    @media (min-width: 600px) {
+        flex-direction: row;
     }
 }
 
@@ -123,14 +40,12 @@ $background-color-dark-grey: #4c566e;
 
 .movie-detail-info {
     padding: 20px;
-    // background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     .movie-detail-info-title {
         margin-bottom: 20px;
         font-weight: bold;
-        color: #333;
     }
 
     .movie-detail-info-row {
@@ -153,12 +68,6 @@ $background-color-dark-grey: #4c566e;
 
         .movie-detail-info-label {
             font-weight: 600;
-            color: #6c6c6c;
-        }
-
-        .movie-detail-info-value {
-            font-weight: normal;
-            color: #333;
         }
     }
 
@@ -170,3 +79,61 @@ $background-color-dark-grey: #4c566e;
         margin-top: 20px;
     }
 }
+
+.song-card {
+    width: 250px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.song-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.song-card-text {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.song-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.song-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.player-container {
+    width: 100%;
+    max-width: 500px;  // Set a max width for the player
+    margin: 20px auto;  // Center the player
+    padding: 10px;
+    background-color: #f0f0f0;  // Optional background color
+    border-radius: 5px;  // Optional rounded corners
+  }
+  

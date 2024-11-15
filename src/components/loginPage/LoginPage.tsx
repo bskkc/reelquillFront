@@ -57,15 +57,15 @@ const LoginPage: React.FC = () => {
                             fullWidth={true}
                             label={uiConstantsTR.LOGIN_PAGE.MAIL_ADDRESS_LABEL}
                             name="mailAddress"
-                            value={userInfo.email} // Güncel email değerini buradan al
+                            value={userInfo.email}
                             onChange={(e) => onChangeCallback('email', e)}
                         />
                         <TextFieldView
                             fullWidth={true}
                             label={uiConstantsTR.LOGIN_PAGE.PASSWORD_LABEL}
                             type="password"
-                            name="password" // Burada 'username' değil, 'password' olmalı
-                            value={userInfo.password} // Güncel password değerini buradan al
+                            name="password"
+                            value={userInfo.password} 
                             onChange={(e) => onChangeCallback('password', e)}
                         />
                         <ButtonView

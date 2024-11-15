@@ -7,6 +7,7 @@ import { GeneralInfoResponse } from '../../../models/generalInfoResponse';
 import PaginationView from '../../common/PaginationView';
 import '../../../styles/HomePage.scss';
 import generalInfoActions from '../../../actions/generalInfoActions';
+import uiConstantsTR from '../../../constants/uiConstantsTR';
 
 const MoviesTab: React.FC = () => {
     const navigate = useNavigate();
@@ -34,9 +35,9 @@ const MoviesTab: React.FC = () => {
     };
 
     return (
-        <div className="movies-tab">
+        <div className="d-flex align-items-center">
             {generalInfo && generalInfo.length > 0 ? (
-                <div className="movies-tab-container">
+                <div>
                     <CardView cardData={currentItems} isClickable={true} handleSelectItem={onSelectItem} />
                     <PaginationView
                         count={Math.ceil(generalInfo.length / itemsPerPage)}
@@ -45,7 +46,7 @@ const MoviesTab: React.FC = () => {
                     />
                 </div>
             ) : (
-                <p className="no-info-message">No general information available.</p>
+                <span>{uiConstantsTR.USER_MESSAGES.NO_MOVIES}</span>
             )}
         </div>
     );

@@ -8,16 +8,20 @@ import uiActions from '../../actions/uiActions';
 import { MessageResponse } from '../../models/messageResponse';
 import '../../styles/Messaging.scss';
 import { formatDateWithText } from '../../helpers/formatter';
+import { styled, useTheme } from '@mui/material/styles';
+import ButtonView from './ButtonView';
+import uiConstantsTR from '../../constants/uiConstantsTR';
 
 const Messaging: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [stompClient, setStompClient] = useState<Client | null>(null);
-    const [selectedMessage, setSelectedMessage] = useState<any>({ groupedMessages: [] }); // Başlangıç değeri
+    const [selectedMessage, setSelectedMessage] = useState<any>({ groupedMessages: [] });
 
     const userInfo = useSelector((state: any) => state.userInfo);
     const isMessageDetailDrawerOpen = useSelector((state: any) => state.ui.isMessageDetailDrawerOpen);
     const messageList = useSelector((state: any) => state.message.selectedMessage);
     const dispatch = useDispatch();
+    const theme = useTheme();
 
     useEffect(() => {
         setSelectedMessage(messageList || { groupedMessages: [] });
@@ -86,12 +90,28 @@ const Messaging: React.FC = () => {
         dispatch(uiActions.messageDetailDrawerStatusChanged(open));
     };
 
+    const StyledButtonView = styled(ButtonView)(({ theme }) => ({
+        bgcolor: theme.palette.primary.main,
+        color: "#DADADA",
+        '&:hover': {
+            bgcolor: theme.palette.primary.dark,
+        }
+    }));
+
     return (
         <div>
             <Drawer anchor="right" open={isMessageDetailDrawerOpen} onClose={toggleDrawer(false)}>
-                <Box sx={{ width: 500, p: 2, display: 'flex', flexDirection: 'column', height: '100vh' }}>
+                <Box
+                    sx={{
+                        width: 500,
+                        p: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100vh',
+                        color: theme.palette.text.primary,
+                    }}>
                     <Typography variant="h5" gutterBottom>
-                        Mesajlaşma
+                        {uiConstantsTR.MESSAGE_DRAWER.MESSAGING_TITLE}
                     </Typography>
                     <Divider />
 
@@ -100,10 +120,18 @@ const Messaging: React.FC = () => {
                             {selectedMessage.groupedMessages && selectedMessage.groupedMessages.length > 0 ? (
                                 selectedMessage.groupedMessages.map((msg: MessageResponse, index: number) => (
                                     <li key={index} className={msg.senderId === userInfo.data.id ? 'sent' : 'received'}>
-                                        <div className="message-bubble">
+                                        <div
+                                            className="message-bubble"
+                                            style={{
+                                                backgroundColor:
+                                                    msg.senderId === userInfo.data.id
+                                                        ? theme.palette.primary.main
+                                                        : theme.palette.secondary.main,
+                                                color: "#DADADA",
+                                            }}>
                                             <div className="message-header">
                                                 <strong>{msg.senderUsername}</strong>
-                                                <span className="message-time">{formatDateWithText(msg.timestamp)}</span>
+                                                <span>{formatDateWithText(msg.timestamp)}</span>
                                             </div>
                                             <div className="message-content">
                                                 {msg.content}
@@ -112,7 +140,7 @@ const Messaging: React.FC = () => {
                                     </li>
                                 ))
                             ) : (
-                                <li>No messages yet.</li>
+                                <li>{uiConstantsTR.MESSAGE_DRAWER.NO_MESSAGES_TEXT}</li>
                             )}
                         </ul>
                     </div>
@@ -122,16 +150,19 @@ const Messaging: React.FC = () => {
                             type="text"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Mesajınızı yazın..."
+                            placeholder={uiConstantsTR.MESSAGE_DRAWER.ENTER_MESSAGE}
                             className="message-input"
                         />
-                        <Button
+                        <StyledButtonView
+                            label='Gönder'
                             variant="contained"
-                            onClick={sendMessage}
-                            className="send-button"
-                        >
-                            Gönder
-                        </Button>
+                            onClickCallback={sendMessage}
+                            sx={{
+                                bgcolor: theme.palette.primary.main,
+                                color: "#DADADA",
+                                '&:hover': { bgcolor: theme.palette.primary.dark },
+                            }}
+                        />
                     </div>
                 </Box>
             </Drawer>
