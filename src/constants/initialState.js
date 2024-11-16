@@ -5,6 +5,7 @@ export const initialState = {
         isAddQuillModalOpen: false,
         isMessageDrawerOpen: false,
         isMessageDetailDrawerOpen: false,
+        isNotificationDrawerOpen: false,
         isMainContentInProgress: false,
         theme: applicationEnum.THEME_ENUM.DARK
     },
@@ -30,5 +31,8 @@ export const initialState = {
     },
     song: {
         data: {},
-    }
+    },
+    notification: {
+        data: {},
+    },
 };

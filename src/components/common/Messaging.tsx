@@ -3,7 +3,7 @@ import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { useSelector, useDispatch } from 'react-redux';
 import Drawer from '@mui/material/Drawer';
-import { Box, Typography, Divider, Button } from '@mui/material';
+import { Box, Typography, Divider } from '@mui/material';
 import uiActions from '../../actions/uiActions';
 import { MessageResponse } from '../../models/messageResponse';
 import '../../styles/Messaging.scss';
@@ -11,6 +11,8 @@ import { formatDateWithText } from '../../helpers/formatter';
 import { styled, useTheme } from '@mui/material/styles';
 import ButtonView from './ButtonView';
 import uiConstantsTR from '../../constants/uiConstantsTR';
+import { MessageController } from '../../controllers/MessageController';
+import { MarkMessagesAsReadRequest } from '../../models/markMessageAsReadRequest';
 
 const Messaging: React.FC = () => {
     const [message, setMessage] = useState<string>('');
@@ -34,7 +36,6 @@ const Messaging: React.FC = () => {
             onConnect: (frame) => {
                 console.log('WebSocket bağlantısı kuruldu:', frame);
 
-                // Mesajları dinle
                 client.subscribe('/topic/messages', (message) => {
                     const receivedMessage = JSON.parse(message.body);
 

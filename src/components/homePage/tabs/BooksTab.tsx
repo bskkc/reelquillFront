@@ -26,15 +26,11 @@ const BooksTab: React.FC = () => {
         setCurrentPage(page);
     };
 
-    const onSelectItem = (item: {}) => {
-        console.log(item)
-    };
-
     return (
         <div className="d-flex align-items-center">
             {books && books.length > 0 ? (
                 <div>
-                    <CardView cardData={currentItems} isClickable={true} handleSelectItem={onSelectItem} />
+                    <CardView cardData={currentItems} isClickable={false} />
                     <PaginationView
                         count={Math.ceil(books.length / itemsPerPage)}
                         currentPage={currentPage}

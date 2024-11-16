@@ -2,6 +2,7 @@ import axios from 'axios';
 import { MessageResponse } from '../models/messageResponse';
 import { AddQuillRequest } from '../models/addQuillRequest';
 import { SendMessageRequest } from '../models/sendMessageRequest';
+import { MarkMessagesAsReadRequest } from '../models/markMessageAsReadRequest';
 
 const API_URL = 'http://localhost:8080/api/messages';
 

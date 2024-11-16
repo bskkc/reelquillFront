@@ -61,7 +61,12 @@ const ModalView: React.FC<ModalViewProps> = ({
                     {children}
 
                     <DialogActions className='d-flex dialog-actions'>
-                        <ButtonView label={firstBtnText} onClickCallback={handleClose} />
+                        <ButtonView
+                            label={firstBtnText}
+                            onClickCallback={handleClose}
+                            color="primary"
+                            variant='outlined'
+                        />
                         <ButtonView label={secondBtnText} onClickCallback={handleApply} />
                     </DialogActions>
                 </Box>

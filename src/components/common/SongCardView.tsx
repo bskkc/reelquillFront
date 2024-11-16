@@ -37,7 +37,7 @@ const SongCardView: React.FC<SongCardViewProps> = ({
 
   return (
     <Box className="d-flex justify-content-center align-items-center">
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {songs.map((song, index) => (
           <Grid item xs={12} sm={6} md={4} key={song.id}>
             <Paper className="song-card">

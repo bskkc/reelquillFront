@@ -13,8 +13,9 @@ interface MovieStatsCardProps {
 
 const MovieStatsCard: React.FC<MovieStatsCardProps> = ({ movie, selectedMovieRate, isRateSelectDisabled, onRateMovie }) => (
     <Paper className="w-100 p-3">
+        <Typography color="text.secondary" className="movie-detail-info-label">{movie.votes} {uiConstantsTR.MOVIE_DETAIL_PAGE.VOTES_LABEL}</Typography>
         <RateView
-            label={uiConstantsTR.MOVIE_DETAIL_PAGE.RATE_MOVIE_LABEL}
+            label={movie.rating}
             defaultValue={0}
             value={selectedMovieRate}
             disabled={isRateSelectDisabled}

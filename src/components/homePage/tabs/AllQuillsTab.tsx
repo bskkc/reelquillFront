@@ -15,13 +15,19 @@ const AllQuillsTab: React.FC = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: any) => state.userInfo.isAuthenticated);
     const quills = useSelector((state: any) => state.quills.trendQuills);
+    const userInfo = useSelector((state: any) => state.userInfo);
 
     useEffect(() => {
         QuillController.getAllQuills(dispatch);
     }, [isAuthenticated]);
 
     const onSelectUser = (userId: number) => {
-        navigate('/userProfile', { state: { selectedUserId: userId } });
+        if (userId !== userInfo.data.id) {
+            navigate('/userProfile', { state: { selectedUserId: userId } });
+        }
+        else {
+            navigate('/profile');
+        }
     }
 
     return (

@@ -52,7 +52,7 @@ const SongsTab: React.FC = () => {
     songs[currentSongIndex]?.downloadUrls && songs[currentSongIndex].downloadUrls[3]?.url;
 
   return (
-    <div className="tab-div">
+    <div className="d-flex align-items-center">
       {songs && songs.length > 0 ? (
         <div>
           <SongCardView

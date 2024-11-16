@@ -9,6 +9,8 @@ import messageReducer from './messageReducer';
 import generalInfoReducer from './generalInfoReducer';
 import bookReducer from './bookReducer';
 import songReducer from './songReducer';
+import notificationReducer from './notificationReducer';
+import { notification } from 'antd';
 
 // Middleware for logging actions
 const loggerMiddleware = store => next => action => {
@@ -36,7 +38,8 @@ const rootReducer = combineReducers({
     generalInfo: generalInfoReducer,
     book: bookReducer,
     song: songReducer,
-  });
+    notification: notificationReducer,
+});
 
 // Persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);

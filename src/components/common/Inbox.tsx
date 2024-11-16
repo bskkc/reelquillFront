@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -22,6 +22,7 @@ import uiConstantsTR from '../../constants/uiConstantsTR';
 
 export default function Inbox() {
     const dispatch = useDispatch();
+    const theme = useTheme();
     const isMessageDrawerOpen = useSelector((state: any) => state.ui.isMessageDrawerOpen);
     const userInfo = useSelector((state: any) => state.userInfo);
     const messages = useSelector((state: any) => state.message.data);
@@ -49,11 +50,17 @@ export default function Inbox() {
                     <List sx={{ mt: 2 }}>
                         {messages.map((message: MessageResponse, index: number) => (
                             <React.Fragment key={index}>
-                                {message.id === 1 && (
-                                    <ListSubheader sx={{ bgcolor: 'background.paper' }}>
-                                        {uiConstantsTR.MESSAGE_DRAWER.TODAY_LABEL}
-                                    </ListSubheader>
+                                {message.timestamp && (
+                                    new Date(message.timestamp).toLocaleDateString() === new Date().toLocaleDateString() ?
+                                        <ListSubheader>
+                                            {uiConstantsTR.MESSAGE_DRAWER.TODAY_LABEL}
+                                        </ListSubheader>
+                                        :
+                                        <ListSubheader>
+                                            {uiConstantsTR.MESSAGE_DRAWER.PREV_LABEL}
+                                        </ListSubheader>
                                 )}
+
                                 <ListItemButton onClick={() => {
                                     let updatedMessage = { ...message };
                                     const currentUserId = userInfo.data.id;

@@ -94,4 +94,21 @@ export class UserController {
             });
         });
     }
+
+    static logout(dispatch: React.Dispatch<any>): void {
+        localStorage.removeItem('token');
+        dispatch(userActions.userInfoChanged({
+            id: 0,
+            username: '',
+            email: '',
+            password: '',
+            creationDate: '',
+            updateDate: ''
+        }));
+
+        dispatch(userActions.isAuthenticated(false));
+        
+        toast.success(uiConstantsTR.USER_MESSAGES.LOGOUT_SUCCESSFUL_MESSAGE);
+    }
+
 }

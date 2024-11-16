@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import LoginPage from './components/loginPage/LoginPage';
@@ -13,17 +12,23 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import { lightTheme, darkTheme } from './styles/theme';
 import { applicationEnum } from './constants/applicationEnum';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Weather from './components/homePage/cards/WeatherCard';
-
+import { HeaderView } from './components/common/HeaderView';
+import Messaging from './components/common/Messaging';
+import Inbox from './components/common/Inbox';
+import NotificationList from './components/common/NotificationList';
 
 function App() {
   const currentTheme = useSelector((state: any) => state.ui.theme);
+  const isAuthenticated = useSelector((state: any) => state.userInfo.isAuthenticated);
 
   return (
     <Router>
       <ThemeProvider theme={currentTheme === applicationEnum.THEME_ENUM.DARK ? darkTheme : lightTheme}>
         <CssBaseline />
         <MainContainer>
+          {isAuthenticated ?
+            <HeaderView />
+            : ""}
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -32,9 +37,12 @@ function App() {
             <Route path="/movieDetail" element={<MovieDetailPage />} />
             <Route path="/userProfile" element={<UserProfilePage />} />
           </Routes>
+          <Inbox />
+          <Messaging />
+          <NotificationList />
         </MainContainer>
       </ThemeProvider>
-    </Router >
+    </Router>
   );
 }
 

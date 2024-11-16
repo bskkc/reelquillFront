@@ -7,6 +7,10 @@ import MovieInfoCard from './cards/MovieInfoCard';
 import MovieStatsCard from './cards/MovieStatsCard';
 import CommentsSection from './cards/CommentsSection';
 import uiConstantsTR from '../../constants/uiConstantsTR';
+import Inbox from '../common/Inbox';
+import Messaging from '../common/Messaging';
+import { GeneralInfoController } from '../../controllers/GeneralInfoController';
+import { RateGeneralInfoRequest } from '../../models/rateGeneralInfoRequest';
 
 const MovieDetailPage: React.FC = () => {
     const dispatch = useDispatch();
@@ -36,6 +40,11 @@ const MovieDetailPage: React.FC = () => {
 
     const handleRateMovie = (value: number) => {
         setSelectedMovieRate(value);
+        const request: RateGeneralInfoRequest = {
+            movieId: movie.id,
+            rate: value,
+        };
+        GeneralInfoController.rateGeneralInfo(request, dispatch);
         setIsRateSelectDisabled(true);
     };
 

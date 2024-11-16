@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Box, TextField, Typography, Button, Divider } from '@mui/material';
+import { Box, TextField, Typography, Button, Divider, Paper } from '@mui/material';
 import { User } from '../../models/user';
 import { UserController } from '../../controllers/UserController';
 import { useDispatch, useSelector } from 'react-redux';
+import TextFieldView from '../common/TextFieldView';
+import uiConstantsTR from '../../constants/uiConstantsTR';
+import { formatDateWithText } from '../../helpers/formatter';
+import ButtonView from '../common/ButtonView';
+import Inbox from '../common/Inbox';
+import Messaging from '../common/Messaging';
 
 const ProfilePage: React.FC = () => {
     const dispatch = useDispatch();
     const userInfo = useSelector((state: any) => state.userInfo);
-    
+
     const [profile, setProfile] = useState<User>({
         id: 1,
-        username: 'your_username',
-        email: 'your_email@example.com',
-        password: 'password123',
-        creationDate: '2022-01-01',
-        updateDate: '2022-01-01'
+        username: '',
+        email: '',
+        password: '',
+        creationDate: '',
+        updateDate: ''
     });
 
     const [editMode, setEditMode] = useState(false);
@@ -46,58 +52,67 @@ const ProfilePage: React.FC = () => {
     };
 
     return (
-        <Box sx={{ width: '50%', margin: 'auto', mt: 4, p: 3, boxShadow: 3, borderRadius: 2 }}>
-            <Typography variant="h4" gutterBottom>Profile</Typography>
-            <Divider sx={{ my: 2 }} />
+        <div>
+            <Paper className='m-5 p-4'>
+                <Typography variant="h4" gutterBottom>{uiConstantsTR.PROFILE_PAGE.PROFILE}</Typography>
+                <Divider sx={{ my: 2 }} />
 
-            <Typography variant="body1" color="text.secondary">Kullanıcı ID: {profile.id}</Typography>
-            <Typography variant="body1" color="text.secondary">Oluşturulma Tarihi: {profile.creationDate}</Typography>
-            <Typography variant="body1" color="text.secondary">Son Güncellenme Tarihi: {profile.updateDate}</Typography>
+                <Typography color="text.secondary">{uiConstantsTR.PROFILE_PAGE.CREATION_DATE} {formatDateWithText(profile.creationDate)}</Typography>
+                <Typography color="text.secondary">{uiConstantsTR.PROFILE_PAGE.UPDATED_DATE} {formatDateWithText(profile.updateDate)}</Typography>
 
-            <Divider sx={{ my: 2 }} />
+                <Divider sx={{ my: 2 }} />
 
-            {editMode ? (
-                <>
-                    <TextField
-                        label="Kullanıcı Adı"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                    />
-                    <TextField
-                        label="Email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                    />
-                    <TextField
-                        label="Yeni Şifre"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        type="password"
-                        fullWidth
-                        margin="normal"
-                    />
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                        <Button variant="contained" onClick={handleSave}>Kaydet</Button>
-                        <Button variant="outlined" color="error" onClick={() => setEditMode(false)}>İptal</Button>
-                    </Box>
-                </>
-            ) : (
-                <>
-                    <Typography variant="body1" color="text.secondary">Kullanıcı Adı: {profile.username}</Typography>
-                    <Typography variant="body1" color="text.secondary">Email: {profile.email}</Typography>
-                    <Button variant="contained" onClick={() => setEditMode(true)} sx={{ mt: 2 }}>
-                        Profili Düzenle
-                    </Button>
-                </>
-            )}
-        </Box>
+                {editMode ? (
+                    <>
+                        <TextFieldView
+                            label={uiConstantsTR.PROFILE_PAGE.USERNAME}
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextFieldView
+                            label={uiConstantsTR.PROFILE_PAGE.MAIL_ADDRESS}
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextFieldView
+                            label={uiConstantsTR.PROFILE_PAGE.NEW_PASSWORD}
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            type="password"
+                            fullWidth
+                            margin="normal"
+                        />
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                            <ButtonView
+                                color="primary"
+                                variant='outlined'
+                                label={uiConstantsTR.PROFILE_PAGE.CANCEL_BUTTON}
+                                onClickCallback={() => setEditMode(false)}
+                            />
+                            <ButtonView
+                                label={uiConstantsTR.PROFILE_PAGE.SAVE_BUTTON}
+                                onClickCallback={handleSave}
+                            />
+                        </Box>
+                    </>
+                ) : (
+                    <>
+                        <Typography color="text.secondary">{uiConstantsTR.PROFILE_PAGE.USERNAME} {profile.username}</Typography>
+                        <Typography color="text.secondary">{uiConstantsTR.PROFILE_PAGE.MAIL_ADDRESS} {profile.email}</Typography>
+                        <Button variant="contained" onClick={() => setEditMode(true)} className='mt-5'>
+                            {uiConstantsTR.PROFILE_PAGE.EDIT_PROFILE_BUTTON}
+                        </Button>
+                    </>
+                )}
+            </Paper>
+        </div>
     );
 };
 

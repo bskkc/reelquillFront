@@ -46,8 +46,6 @@ const HomePage: React.FC = () => {
             </div>
 
             <AddQuillModal />
-            <Inbox />
-            <Messaging />
         </div>
     );
 

@@ -9,6 +9,7 @@ import { UserController } from '../../controllers/UserController';
 import { LoginRequest } from '../../models/loginRequest';
 import { useDispatch } from 'react-redux';
 import userActions from '../../actions/userActions';
+import { hasNullOrEmpty } from '../../helpers/hasNullOrEmpty';
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
@@ -17,6 +18,16 @@ const LoginPage: React.FC = () => {
         email: '',
         password: '',
     });
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+
+    useEffect(() => {
+        if (hasNullOrEmpty(userInfo)) {
+            setIsBtnDisabled(true)
+        }
+        else {
+            setIsBtnDisabled(false)
+        }
+    }, [userInfo]);
 
     useEffect(() => {
         setUserInfo({
@@ -33,7 +44,6 @@ const LoginPage: React.FC = () => {
             })
             .catch((error) => {
                 console.error(error);
-                alert('Giriş başarısız!');
             });
     };
 
@@ -48,8 +58,14 @@ const LoginPage: React.FC = () => {
         });
     };
 
+    const onKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            onClickLogin();
+        }
+    };
+
     return (
-        <div className="login-page">
+        <div className="login-page" onKeyDown={onKeyDownHandler}>
             <Grid justifyContent="center" container spacing={2}>
                 <Grid item xs={12} sm={8} md={6} lg={4}>
                     <Paper className="login-form">
@@ -65,12 +81,13 @@ const LoginPage: React.FC = () => {
                             label={uiConstantsTR.LOGIN_PAGE.PASSWORD_LABEL}
                             type="password"
                             name="password"
-                            value={userInfo.password} 
+                            value={userInfo.password}
                             onChange={(e) => onChangeCallback('password', e)}
                         />
                         <ButtonView
                             label={uiConstantsTR.LOGIN_PAGE.LOGIN_LABEL}
                             onClickCallback={onClickLogin}
+                            isDisabled={isBtnDisabled}
                         />
                         <span
                             onClick={onClickRegister}

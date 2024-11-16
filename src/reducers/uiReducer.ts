@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { addQuillModalStatusChanged, messageDrawerStatusChanged, messageDetailDrawerStatusChanged, mainContentStatusChanged, themeChanged } from '../actions/uiActions';
+import { addQuillModalStatusChanged, messageDrawerStatusChanged, messageDetailDrawerStatusChanged, notificationDrawerStatusChanged, mainContentStatusChanged, themeChanged } from '../actions/uiActions';
 import { initialState } from '../constants/initialState';
 
 const uiReducer = createReducer(initialState.ui, (builder) => {
@@ -12,6 +12,9 @@ const uiReducer = createReducer(initialState.ui, (builder) => {
         })
         .addCase(messageDetailDrawerStatusChanged, (state, action) => {
             state.isMessageDetailDrawerOpen = action.payload;
+        })
+        .addCase(notificationDrawerStatusChanged, (state, action) => {
+            state.isNotificationDrawerOpen = action.payload;
         })
         .addCase(mainContentStatusChanged, (state, action) => {
             state.isMainContentInProgress = action.payload;
